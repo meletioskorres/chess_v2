@@ -5,6 +5,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
 import com.chess.engine.pieces.Piece;
+import com.chess.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 import org.checkerframework.checker.units.qual.A;
 
@@ -12,6 +13,8 @@ import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.chess.engine.board.Move.*;
 
 public class WhitePlayer extends Player {
     public WhitePlayer(Board board, Collection<Move> whiteStandardLegalMoves, Collection<Move> blackStandardLegalMoves) {
@@ -46,7 +49,8 @@ public class WhitePlayer extends Player {
                     if(Player.calculateAttacksOnTile(61,opponentsLegals).isEmpty()
                     && Player.calculateAttacksOnTile(62,opponentsLegals).isEmpty()
                     && rookTile.getPiece().getPieceType().isRook()){
-                        kingCastles.add(null);
+                        kingCastles.add(new KingSideCastleMove(board,playerKing,62,
+                                (Rook) rookTile.getPiece(),rookTile.getTileCoordinate(),61));
                     }
                 }
             }
@@ -56,7 +60,8 @@ public class WhitePlayer extends Player {
 
                 final Tile rookTile = this.board.getTile(56);
                 if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
-                    kingCastles.add(null);
+                    kingCastles.add(new QueenSideCastleMove(board,playerKing,58,
+                            (Rook) rookTile.getPiece(),rookTile.getTileCoordinate(),59));
                 }
             }
         }
