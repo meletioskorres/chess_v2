@@ -16,7 +16,7 @@ import static com.chess.engine.board.Move.*;
 public class Bishop extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9};
     public Bishop(int piecePosition, Alliance pieceAlliance) {
-        super(PieceType.BISHOP, piecePosition, pieceAlliance);
+        super(PieceType.BISHOP, piecePosition, pieceAlliance, cachedHashCode);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class Bishop extends Piece{
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public Piece movePiece(Move move) {
+        return new Bishop(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
     }
 
     @Override

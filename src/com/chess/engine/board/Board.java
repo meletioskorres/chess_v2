@@ -6,7 +6,7 @@ import com.chess.engine.player.BlackPlayer;
 import com.chess.engine.player.Player;
 import com.chess.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
-import org.checkerframework.checker.units.qual.K;
+import com.google.common.collect.Iterables;
 
 import java.util.*;
 
@@ -139,10 +139,13 @@ public class Board {
         return this.currentPlayer;
     }
 
+    public Iterable<Move> getAllLegalMoves() {
+        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(), this.blackPlayer.getLegalMoves()));
+    }
     public static class Builder {
         Map<Integer, Piece> boardConfig;
         Alliance nextMove;
-
+        Pawn enPassantPawn;
         public Builder() {
             this.boardConfig = new HashMap<>();
         }
@@ -151,13 +154,16 @@ public class Board {
             this.boardConfig.put(piece.getPiecePosition(), piece);
             return this;
         }
-
         public Builder setMoveMaker(final Alliance nextMove) {
             this.nextMove = nextMove;
             return this;
         }
         public Board build() {
             return new Board(this);
+        }
+
+        public void setEnPassantPawn(Pawn enPassantPawn) {
+            this.enPassantPawn = enPassantPawn;
         }
     }
 
