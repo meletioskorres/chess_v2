@@ -16,7 +16,11 @@ import static com.chess.engine.board.Move.*;
 public class Bishop extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9};
     public Bishop(int piecePosition, Alliance pieceAlliance) {
-        super(PieceType.BISHOP, piecePosition, pieceAlliance, cachedHashCode);
+        super(PieceType.BISHOP, piecePosition, pieceAlliance,true);
+    }
+
+    public Bishop(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+        super(PieceType.BISHOP, piecePosition, pieceAlliance, isFirstMove);
     }
 
     @Override
