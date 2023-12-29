@@ -3,11 +3,10 @@ package com.chess.engine.board;
 import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
 import com.chess.engine.pieces.Rook;
-import jdk.jfr.Percentage;
 
 import java.util.Objects;
 
-import static com.chess.engine.board.Board.*;
+import static com.chess.engine.board.Board.Builder;
 
 public abstract class Move {
     final Board board;
